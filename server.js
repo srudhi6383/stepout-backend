@@ -1,6 +1,6 @@
 const express = require("express");
 const cors = require("cors");
-const { userRouter } = require("./Controller/user.routes.js");
+const { userRouter } = require("./Controller/user.routes");
 const { authentication } = require("./middleware/authentication.js");
 const { connection } = require("./db");
 const { adminRouter } = require("./Controller/admin.routes.js");

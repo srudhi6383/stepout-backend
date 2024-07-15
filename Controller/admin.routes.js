@@ -43,6 +43,9 @@ adminRouter.post("/train", async (req, res) => {
     });
   }
 
+  console.log(userId); 
+
+
   if (userId === "admin@gmail.com") {
     try {
       const newTrain = await TrainModel.create({
@@ -51,7 +54,7 @@ adminRouter.post("/train", async (req, res) => {
         source,
         destination,
         seats,
-        userId,
+        admin:userId,
       });
 
       return res.json({
