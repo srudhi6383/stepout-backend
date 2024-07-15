@@ -1,7 +1,16 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
+require('dotenv').config();
 
-const connection = mongoose.connect(
-  "mongodb+srv://srudhi24:srudhimongodb123@cluster0.m9slaat.mongodb.net/Railway"
-);
+async function connectDB() {
+    try {
+        await mongoose.connect(process.env.MONGOURL);
+        console.log('Connected to MongoDB');
+    } catch (error) {
+        console.error('Failed to connect to MongoDB', error);
 
-module.exports = { connection };
+    }
+}
+
+module.exports = {
+    connectDB
+}
