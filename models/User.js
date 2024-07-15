@@ -1,15 +1,30 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
 
-const UserSchema = new mongoose.Schema({
-    username: { type: String, required: true, unique: true },
-    password: { type: String, required: true }
-});
+const User_Schema = new mongoose.Schema({
+    'username':{
+        type:String,
+        required:true,
+        unique:true
+    },
+    'password':{
+        type:String,
+        required:true,
+    },
+    'bookings':{
+        type:[{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Booking' 
+        }]
+    },
+    'email':{
+        type:String,
+        require:true,
+        unique:true
+    }
+    
+})
+const User_model = new mongoose.model('User',User_Schema)
 
-let User;
-try {
-    User = mongoose.model('User');
-} catch (error) {
-    User = mongoose.model('User', UserSchema);
+module.exports = {
+    User_model
 }
-
-module.exports = User;

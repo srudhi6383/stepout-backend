@@ -1,16 +1,24 @@
-const mongoose = require('mongoose');
+const express = require('express')
+const jwt = require('jsonwebtoken');
 
-const UserSchema = new mongoose.Schema({
-    username: { type: String, required: true, unique: true },
-    password: { type: String, required: true }
-});
+function UserMiddleware(req, res, next) {
+    const token = req.cookies.railway_token; 
+    if (!token) {
+        return res.status(401).send({ err: 'Access denied. No token provided.' });
+    }
 
-// Define the User model only if it hasn't been defined before
-let User;
-try {
-    User = mongoose.model('User');
-} catch (error) {
-    User = mongoose.model('User', UserSchema);
+    try {
+        const decoded = jwt.verify(token,'masai');
+        
+        if (!decoded.Admin) {
+            return res.status(403).send({ err: 'Access denied. You are not an admin.' });
+        }
+        req.user = decoded.userId
+        next();
+    } catch (error) {
+        console.error(error);
+        return res.status(400).send({ err: 'Invalid token.' });
+    }
 }
 
-module.exports = User;
+module.exports = UserMiddleware;

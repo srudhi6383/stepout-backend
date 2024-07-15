@@ -1,5 +1,4 @@
-const mongoose = require('mongoose');
-
+const mongoose = require('mongoose')
 const BookingSchema = new mongoose.Schema({
     train_id: {
         type: mongoose.Schema.Types.ObjectId,
@@ -21,16 +20,17 @@ const BookingSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     },
-    seat_numbers: {
-        type: [Number],
-        required: true
+    seat_numbers:{
+        type:[]
     },
-    user_id: {
-        type: mongoose.Schema.Types.ObjectId,
-        required: true
+    user_id:{
+        type:mongoose.Schema.Types.ObjectId,
+        required:true
     }
 });
 
-const Booking = mongoose.model('Booking', BookingSchema);
+const Booking_model = mongoose.model('Booking', BookingSchema);
 
-module.exports = Booking;
+module.exports = {
+    Booking_model
+};
