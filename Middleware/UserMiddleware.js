@@ -10,8 +10,8 @@ function UserMiddleware(req, res, next) {
     try {
         const decoded = jwt.verify(token,'masai');
         
-        if (!decoded.Admin) {
-            return res.status(403).send({ err: 'Access denied. You are not an admin.' });
+        if (!decoded) {
+            return res.status(403).send({ err: 'Access denied. Invalid Token.' });
         }
         req.user = decoded.userId
         next();

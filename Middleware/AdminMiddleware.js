@@ -2,6 +2,7 @@ const express = require('express');
 const jwt = require('jsonwebtoken');
 
 function AdminMiddleware(req, res, next) {
+
     const token = req.cookies.railway_token; 
 
     if (!token) {
