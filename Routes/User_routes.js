@@ -11,15 +11,19 @@ User_Router.post('/api/signup', async (req, res) => {
     }
 
     try {
+        // Check if the username or email already exists
         const already_exists = await User_model.findOne({ $or: [{ username }, { email }] });
         if (already_exists) {
             return res.status(400).send({ err: 'Username or Email already exists' });
         }
+        // Hash password
         bcrypt.hash(password, 5, async function(err, hash) {
             if (err) {
                 return res.status(500).json({ err: err.message });
             }
+            // Create a new user
             const newUser = new User_model({ username, password: hash, email });
+            // Save user
             await newUser.save();
             
             res.status(201).send({

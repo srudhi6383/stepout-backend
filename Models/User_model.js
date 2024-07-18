@@ -13,7 +13,7 @@ const User_Schema = new mongoose.Schema({
     'bookings':{
         type:[{
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'Booking' 
+            ref: 'Booking'
         }]
     },
     'email':{
